@@ -3,9 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.7.2",
+    "@material-ui/icons": "^4.5.1",
+    "add": "^2.0.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "^3.2.0"
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^3.2.0",
+    "typeface-roboto": "^0.0.75",
+    "yarn": "^1.21.0"
   },
   "scripts": {
     "start": "npm-run-all --parallel client server",
