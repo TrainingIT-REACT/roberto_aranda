@@ -4,7 +4,10 @@ const GET_SONGS = "GET_SONGS";
 const GET_SONGS_SUCCESS = "GET_SONGS_SUCCESS";
 
 export function getSongs() {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const { songs } = getState().songs;
+    if (songs.length > 0) return; // Already in the store
+
     dispatch({ type: GET_SONGS });
     return fetch("/songs")
       .then(res => res.json())
@@ -43,7 +46,8 @@ export function getSongsByAlbumId(state, albumId) {
 export function getSongById(state, id) {
   const { songs } = state.songs;
   const idParsed = parseInt(id);
-  return songs.find(s => s.id === idParsed);
+  const song = songs.find(s => s.id === idParsed);
+  return song || {};
 }
 
 export default songs;
