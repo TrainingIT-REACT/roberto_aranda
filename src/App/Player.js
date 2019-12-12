@@ -12,7 +12,7 @@ const Player = ({ name, audio, getSongs, match }) => {
     <div>
       <Typography variant="h1">{name}</Typography>
       <Typography variant="subtitle1">El fichero es {audio}</Typography>
-      <audio controls src={audio}></audio>
+      <audio controls autoPlay src={audio}></audio>
     </div>
   );
 };
