@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Paper,
   Table,
@@ -9,6 +9,8 @@ import {
   makeStyles
 } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { getAlbums } from "./redux/albumsDuck";
 
 const styles = () => ({
   coverImg: {
@@ -18,21 +20,10 @@ const styles = () => ({
 });
 const useStyles = makeStyles(styles);
 
-const Albums = props => {
-  const [albums, setAlbums] = useState([]);
+const Albums = ({ albums, getAlbums, ...props }) => {
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await fetch("/albums");
-        const json = await res.json();
-        console.log("er json", json);
-        setAlbums(json);
-      } catch (e) {
-        console.error("Error accediendo al servidor", e);
-      }
-    }
-    fetchData();
-  }, []);
+    getAlbums();
+  }, [getAlbums]);
   const classes = useStyles(props);
   const handleSelect = id => props.history.push("/album/" + id);
   return (
@@ -61,4 +52,15 @@ const Albums = props => {
   );
 };
 
-export default withRouter(Albums);
+const mapState = state => {
+  const { albums } = state.albums;
+  return {
+    albums
+  };
+};
+
+const mapDispatch = {
+  getAlbums
+};
+
+export default withRouter(connect(mapState, mapDispatch)(Albums));

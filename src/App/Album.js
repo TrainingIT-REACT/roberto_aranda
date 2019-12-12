@@ -1,39 +1,64 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { IconButton, Typography } from "@material-ui/core";
+import {
+  IconButton,
+  Paper,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell
+} from "@material-ui/core";
 import PlayIcon from "@material-ui/icons/PlayCircleFilledOutlined";
+import { connect } from "react-redux";
+import { getSongs, getSongsByAlbumId } from "./redux/songsDuck";
 
-const Album = props => {
-  const [album, setAlbum] = useState({});
+const Album = ({ songs, getSongs, match, history }) => {
   useEffect(() => {
-    const songId = props.match.params.id;
-    async function fetchData() {
-      try {
-        const res = await fetch("/songs/" + songId);
-        const json = await res.json();
-        setAlbum(json);
-      } catch (e) {
-        console.error("Error accediendo al servidor", e);
-      }
-    }
-    fetchData();
-  }, [props.match.params.id]);
-  const playSong = song => console.log("playing", song);
+    getSongs();
+  }, [getSongs, match.params.id]);
+  const playSong = songId => history.push("/reproductor/" + songId);
   return (
-    <div>
-      <Typography variant="h1">{album.name}</Typography>
-      <Typography variant="subtitle1">{album.audio}</Typography>
-      <Typography variant="caption">{album.seconds} segundos</Typography>
-      <IconButton
-        onClick={() => {
-          playSong(album.audio);
-        }}
-      >
-        <PlayIcon />
-      </IconButton>
-      <audio src={album.audio}></audio>
-    </div>
+    <Paper>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Identificador</TableCell>
+            <TableCell>Nombre</TableCell>
+            <TableCell>Pista</TableCell>
+            <TableCell>Segundos</TableCell>
+            <TableCell>Reproducir</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {songs.map((a, i) => (
+            <TableRow key={a.id}>
+              <TableCell>{a.id}</TableCell>
+              <TableCell>{a.name}</TableCell>
+              <TableCell>{a.audio}</TableCell>
+              <TableCell>{a.seconds}</TableCell>
+              <TableCell>
+                <IconButton
+                  onClick={() => {
+                    playSong(a.id);
+                  }}
+                >
+                  <PlayIcon />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Paper>
   );
 };
 
-export default withRouter(Album);
+const mapState = (state, ownProps) => {
+  const albumId = ownProps.match.params.id;
+  return { songs: getSongsByAlbumId(state, albumId) };
+};
+
+const mapDispatch = { getSongs };
+
+export default withRouter(connect(mapState, mapDispatch)(Album));

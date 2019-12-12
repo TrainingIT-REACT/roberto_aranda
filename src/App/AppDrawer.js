@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import HomeIcon from "@material-ui/icons/Home";
 import QueueMusicIcon from "@material-ui/icons/QueueMusic";
-import RadioIcon from "@material-ui/icons/Radio";
 import PersonIcon from "@material-ui/icons/Person";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
 import List from "@material-ui/core/List";
@@ -91,14 +90,6 @@ const ResponsiveDrawer = props => {
               <QueueMusicIcon />
             </ListItemIcon>
             <ListItemText primary={"Álbums"} />
-          </ListItem>
-        </NavLink>
-        <NavLink to="/reproductor" activeClassName="activeItem">
-          <ListItem button key={"Reproductor"}>
-            <ListItemIcon>
-              <RadioIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Reproductor"} />
           </ListItem>
         </NavLink>
       </List>
