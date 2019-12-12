@@ -1,6 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
+import Albums from "./Albums";
+import Album from "./Album";
 
 const Home = props => {
   return <Typography variant="h2">Soy el componente {props.name}</Typography>;
@@ -10,10 +12,10 @@ const AppRoutes = () => {
   return (
     <Switch>
       <Route path="/albums">
-        <Home name="albums" />
+        <Albums />
       </Route>
-      <Route exact path="/album">
-        <Home name="album" />
+      <Route exact path="/album/:id">
+        <Album />
       </Route>
       <Route exact path="/reproductor">
         <Home name="reproductor" />
