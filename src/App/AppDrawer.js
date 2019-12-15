@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.grey[500]
     },
     "& .activeItem": {
-      color: theme.palette.grey[900]
+      color: theme.palette.primary.contrastText
     }
   },
   appBar: {
@@ -76,7 +76,7 @@ const ResponsiveDrawer = props => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <NavLink to="/" activeClassName="activeItem">
+        <NavLink to="/" exact activeClassName="activeItem">
           <ListItem button key={"Inicio"}>
             <ListItemIcon>
               <HomeIcon />

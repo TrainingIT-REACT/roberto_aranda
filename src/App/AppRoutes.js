@@ -4,14 +4,18 @@ import Typography from "@material-ui/core/Typography";
 import Albums from "./Albums";
 import Album from "./Album";
 import Player from "./Player";
+import Home from "./Home";
 
-const Home = props => {
+const Home1 = props => {
   return <Typography variant="h2">Soy el componente {props.name}</Typography>;
 };
 
 const AppRoutes = () => {
   return (
     <Switch>
+      <Route exact path="/">
+        <Home />
+      </Route>
       <Route path="/albums">
         <Albums />
       </Route>
@@ -22,13 +26,10 @@ const AppRoutes = () => {
         <Player />
       </Route>
       <Route path="/sesion">
-        <Home name="Inicio de sesión" />
+        <Home1 name="Inicio de sesión" />
       </Route>
       <Route path="/usuario">
-        <Home name="Perfil de usuario" />
-      </Route>
-      <Route exact path="/">
-        <Home name="home" />
+        <Home1 name="Perfil de usuario" />
       </Route>
     </Switch>
   );
