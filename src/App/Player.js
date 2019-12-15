@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { getSongs, getSongById } from "./redux/songsDuck";
-import { Typography } from "@material-ui/core";
+import React, { useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getSongs, getSongById } from './redux/songsDuck';
+import { playedSong } from './redux/userDuck';
+import { Typography } from '@material-ui/core';
 
-const Player = ({ name, audio, getSongs, match }) => {
+const Player = ({ name, audio, getSongs, match, playedSong }) => {
   useEffect(() => {
     getSongs();
   }, [getSongs, match.params.id]);
+  useEffect(() => {
+    playedSong(name);
+  });
   return (
     <div>
       <Typography variant="h1">{name}</Typography>
@@ -22,6 +26,6 @@ const mapState = (state, ownProps) => {
   return getSongById(state, id);
 };
 
-const mapDispatch = { getSongs };
+const mapDispatch = { getSongs, playedSong };
 
 export default withRouter(connect(mapState, mapDispatch)(Player));

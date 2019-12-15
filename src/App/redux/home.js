@@ -1,5 +1,5 @@
-import { getAlbums } from "./albumsDuck";
-import { getSongs } from "./songsDuck";
+import { getAlbums } from './albumsDuck';
+import { getSongs } from './songsDuck';
 
 const NUM_SUGGESTIONS = 5;
 
@@ -18,6 +18,7 @@ export function selectSuggestions(state) {
   for (let i = 0; i < NUM_SUGGESTIONS; i++) {
     albumsSuggestions.push(pickRandom(albums));
     const song = pickRandom(songs);
+
     const album = albums.find(a => a.id === song.album_id);
     if (!album) continue;
     song.albumCover = album.cover;

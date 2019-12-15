@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Reactify",
+  "name": "Reproductor y Market de Música",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,14 +1,11 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
-import Albums from "./Albums";
-import Album from "./Album";
-import Player from "./Player";
-import Home from "./Home";
-
-const Home1 = props => {
-  return <Typography variant="h2">Soy el componente {props.name}</Typography>;
-};
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Albums from './Albums';
+import Album from './Album';
+import Player from './Player';
+import Home from './Home';
+import LoginForm from './LoginForm';
+import UserProfile from './UserProfile';
 
 const AppRoutes = () => {
   return (
@@ -26,10 +23,10 @@ const AppRoutes = () => {
         <Player />
       </Route>
       <Route path="/sesion">
-        <Home1 name="Inicio de sesión" />
+        <LoginForm />
       </Route>
       <Route path="/usuario">
-        <Home1 name="Perfil de usuario" />
+        <UserProfile />
       </Route>
     </Switch>
   );

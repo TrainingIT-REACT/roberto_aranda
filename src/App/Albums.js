@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import {
   Paper,
   Table,
@@ -7,25 +7,29 @@ import {
   TableRow,
   TableCell,
   makeStyles
-} from "@material-ui/core";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { getAlbums } from "./redux/albumsDuck";
+} from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getAlbums } from './redux/albumsDuck';
+import { viewedAlbum } from './redux/userDuck';
 
 const styles = () => ({
   coverImg: {
-    width: "2rem",
-    height: "2rem"
+    width: '2rem',
+    height: '2rem'
   }
 });
 const useStyles = makeStyles(styles);
 
-const Albums = ({ albums, getAlbums, ...props }) => {
+const Albums = ({ albums, getAlbums, viewedAlbum, ...props }) => {
   useEffect(() => {
     getAlbums();
   }, [getAlbums]);
   const classes = useStyles(props);
-  const handleSelect = id => props.history.push("/album/" + id);
+  const handleSelect = (id, name) => {
+    viewedAlbum(name);
+    props.history.push('/album/' + id);
+  };
   return (
     <Paper>
       <Table>
@@ -38,7 +42,10 @@ const Albums = ({ albums, getAlbums, ...props }) => {
         </TableHead>
         <TableBody>
           {albums.map((a, i) => (
-            <TableRow key={a.id} onClick={handleSelect.bind(null, a.id)}>
+            <TableRow
+              key={a.id}
+              onClick={handleSelect.bind(null, a.id, a.name)}
+            >
               <TableCell>{a.name}</TableCell>
               <TableCell>{a.artist}</TableCell>
               <TableCell>
@@ -60,7 +67,8 @@ const mapState = state => {
 };
 
 const mapDispatch = {
-  getAlbums
+  getAlbums,
+  viewedAlbum
 };
 
 export default withRouter(connect(mapState, mapDispatch)(Albums));
